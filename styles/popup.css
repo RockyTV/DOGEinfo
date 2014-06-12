@@ -1,0 +1,76 @@
+body {
+	min-width: 250px;
+	margin: 0px;
+	color: #545454;
+	background-color: #d8c173;	
+	font-family: Consolas;
+	font-size: 13px;
+	text-align: center;
+}
+
+header {
+	background-color: #e0cd81;
+	height: 50px;
+	margin-bottom: 35px;
+	border-bottom: 1px solid;
+}
+
+#extLogo {
+	position: relative;
+	top: -10px;
+	width: 128px;
+	height:128px;
+	margin: 0px auto;
+	background-image: url('doge-logo.png');
+	background-repeat: no-repeat;
+	background-size: 128px 128px;
+}
+
+#content {
+	padding: 0px 40px;	
+}
+
+#ulContent {
+	margin-bottom: 10px;	
+}
+
+ul {
+	margin: 25px 0px 0px 0px;
+	padding: 25px 0px 0px 0px;
+}
+
+li {
+	list-style-type: none;
+	white-space: nowrap;
+	border-top: 1px solid #c2a44d;	
+	font-size: 13px;
+	text-align: center;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}
+
+li ul {
+	margin-left: 35px;	
+}
+
+li li {
+	cursor: default;
+	padding: 1px 1px; /*10 15*/	
+}
+
+.menu-item {
+	padding: 1px 0px 0px 1px; /*10 0 0 15*/	
+	margin: 0px 0px 0px 5px;
+}
+
+.menu-item:hover {
+	background-color: #c8b36b;	
+}
+
+.center {
+	text-align: center;	
+}
+
+small {
+	font-size: 8px;	
+}

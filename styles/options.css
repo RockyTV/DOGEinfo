@@ -1,0 +1,35 @@
+body {
+	min-width: 250px;
+	margin: 0px;
+	color: #545454;
+	background-color: #d8c173;	
+	font-family: Consolas;
+	font-size: 13px;
+	text-align: center;
+}
+
+header {
+	background-color: #e0cd81;
+	height: 50px;
+	margin-bottom: 35px;
+	border-bottom: 1px solid;
+}
+
+#extLogo {
+	position: relative;
+	top: -10px;
+	width: 128px;
+	height:128px;
+	margin: 0px auto;
+	background-image: url('doge-logo.png');
+	background-repeat: no-repeat;
+	background-size: 128px 128px;
+}
+
+#content {
+	padding: 40px 0px 0px 0px;	
+}
+
+#save {
+	text-align: center;
+}
