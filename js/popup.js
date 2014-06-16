@@ -1,12 +1,14 @@
 var getInfo = $.get("https://api.prelude.io/last-usd/DOGE", function(data) {
 	
-	document.getElementById("priceDOGE").innerHTML = utf8_decode("Ð") + "1000 = $" + data['last'] * 1000;
+	document.getElementById("priceDOGE").innerHTML = utf8_decode("Ð") + "1000 = $" + Math.round((data['last'] * 1000) * 100) / 100;
 	
+	// get last trade DOGE-BTC
 	var getSatoshi = $.get("https://api.prelude.io/last/DOGE", function(preludeSatoshi) {
 		var satoshi = preludeSatoshi['last'] * 100000000;
 		document.getElementById("priceSatoshi").innerHTML = utf8_decode("Ð") + "1 = " + satoshi + " satoshi";
 	});
 	
+	// DOGECHAIN
 		var getHeight = $.get("http://dogechain.info/chain/Dogecoin/q/getblockcount", function(bheight) {
 			document.getElementById("blockHeight").innerHTML = "Height: " + bheight;
 			var getHash = $.get("https://dogechain.info/api/v1/block/" + bheight, function(dgjson) {
@@ -16,6 +18,22 @@ var getInfo = $.get("https://api.prelude.io/last-usd/DOGE", function(data) {
 		});
 	});
 	
+	var awesomehash = "https://awesomehash.com/index.php?";
+	var awesomehashApi = awesomehash + "page=api&";
+	var navbardata = awesomehashApi + "action=getnavbardata"
+	
+	// AwesomeHash statistics
+	var getAwesome = $.getJSON("https://awesomehash.com/index.php?page=api&action=getnavbardata", function(awesome) {
+		
+		var networkhash = Math.round(awesome['getnavbardata']['data']['network']['hashrate']);
+		var modifier = awesome['getnavbardata']['data']['network']['hashratemodifiername'];
+		console.log(networkhash);
+		
+		document.getElementById("networkHash").innerHTML = "Net. Hashrate: " + networkhash + " " + modifier;
+			
+	});
+	
+	// DOGECHAIN wallet balance
 	var getBalance = $.get("https://dogechain.info/api/v1/address/balance/" + walletAddress, function (jstring) {
 		var success = jstring['success'];
 		var balance = jstring['balance'];

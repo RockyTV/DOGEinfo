@@ -1,7 +1,7 @@
 {
 	"name" : "DOGEinfo",
 	"description" : "Displays mining and value information about the DOGEcoin cryptocurrency.",
-	"version" : "0.3",
+	"version" : "0.4",
 	"manifest_version" : 2,
 	
 	"options_page": "options.html",
@@ -9,6 +9,7 @@
 	"permissions": [
 		"https://dogechain.info/",
 		"https://api.prelude.io/",
+		"https://awesomehash.com/",
 		"storage"
 	],
 	
