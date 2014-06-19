@@ -1,7 +1,7 @@
 {
 	"name" : "DOGEinfo",
 	"description" : "Displays mining and value information about the DOGEcoin cryptocurrency.",
-	"version" : "0.4",
+	"version" : "0.4.1",
 	"manifest_version" : 2,
 	
 	"options_page": "options.html",

@@ -1,10 +1,10 @@
-var getInfo = $.get("https://api.prelude.io/last-usd/DOGE", function(data) {
+﻿var getInfo = $.get("https://api.prelude.io/last-usd/DOGE", function(data) {
 	
 	document.getElementById("priceDOGE").innerHTML = utf8_decode("Ð") + "1000 = $" + Math.round((data['last'] * 1000) * 100) / 100;
 	
 	// get last trade DOGE-BTC
 	var getSatoshi = $.get("https://api.prelude.io/last/DOGE", function(preludeSatoshi) {
-		var satoshi = preludeSatoshi['last'] * 100000000;
+		var satoshi = Math.round((preludeSatoshi['last'] * 100000000));
 		document.getElementById("priceSatoshi").innerHTML = utf8_decode("Ð") + "1 = " + satoshi + " satoshi";
 	});
 	
