@@ -1,57 +1,71 @@
-﻿var getInfo = $.get("https://api.prelude.io/last-usd/DOGE", function(data) {
+﻿// GET DOGE-BTC FROM CRYPTSY
+var getInfo = $.get("http://pubapi.cryptsy.com/api.php?method=singlemarketdata&marketid=132", function(data) {
 	
-	document.getElementById("priceDOGE").innerHTML = "&#208;1000 = $" + Math.round((data['last'] * 1000) * 100) / 100;
+	var cryptsyBTC = data['return']['markets']['DOGE']['lasttradeprice'] * 100000000;
+	
+	// GET DOGE-USD FROM CRYPTSY
+	var getCryptsyUSD = $.get("http://pubapi.cryptsy.com/api.php?method=singlemarketdata&marketid=182", function(data2) {
+		var convert = data2['return']['markets']['DOGE']['lasttradeprice'];
+		
+		document.getElementById("cryptsy").innerHTML = document.getElementById("cryptsy").innerHTML + "<div id=showhide><br><div class=left>&#208;1 = " + cryptsyBTC + " satoshi" + "<br>&#208;1000 = $" + Math.round((convert * 1000) * 100) / 100 + "" + "<\div><\div>";
+		
+	});
+	
+	var getBterBTC = $.get("https://data.bter.com/api/1/ticker/DOGE_BTC", function(data3) {
+		var bterBTC = data3['last'] * 100000000;
+		
+		var getBterUSD = $.get("https://data.bter.com/api/1/ticker/DOGE_USD", function(data4) {			
+			var bterUSD = data4['last'] * 1000;
+			
+			document.getElementById("bter").innerHTML = document.getElementById("bter").innerHTML + "<div id=showhide2><br><div class=left>&#208;1 = " + bterBTC + " satoshi" + "<br>&#208;1000 = $" + Math.round(bterUSD * 100) / 100 + "" + "<\div><\div>"
+			
+			});
+		
+	});
+	
+	// Math.round((data['last'] * 1000) * 100) / 100;
 	
 	// get last trade DOGE-BTC
-	var getSatoshi = $.get("https://api.prelude.io/last/DOGE", function(preludeSatoshi) {
-		var satoshi = preludeSatoshi['last'] * 100000000;
-		document.getElementById("priceSatoshi").innerHTML = "&#208;1 = " + Math.round(satoshi) + " satoshi";
-	});
 	
 	// DOGECHAIN
 		var getHeight = $.get("http://dogechain.info/chain/Dogecoin/q/getblockcount", function(bheight) {
 			document.getElementById("blockHeight").innerHTML = "Height: " + bheight;
 			var getHash = $.get("https://dogechain.info/api/v1/block/" + bheight, function(dgjson) {
 			var hash = dgjson['block']['hash'];
-			document.getElementById("blockHash").innerHTML = "Hash: " + hash.substring(0, 6);
+			document.getElementById("blockHash").innerHTML = "<span title=" + hash + ">Hash: " + hash.substring(0, 6) + "</span>";
 			document.getElementById("difficulty").innerHTML = "Difficulty: " + dgjson['block']['difficulty'];
 		});
 	});
 	
-	var awesomehash = "https://awesomehash.com/index.php?";
-	var awesomehashApi = awesomehash + "page=api&";
-	var navbardata = awesomehashApi + "action=getnavbardata"
-	
-	// AwesomeHash statistics
-	var getAwesome = $.getJSON("https://awesomehash.com/index.php?page=api&action=getnavbardata", function(awesome) {
-		
-		var networkhash = Math.round(awesome['getnavbardata']['data']['network']['hashrate']);
-		var modifier = awesome['getnavbardata']['data']['network']['hashratemodifiername'];
-		console.log(networkhash);
-		
-		document.getElementById("networkHash").innerHTML = "Net. Hashrate: " + networkhash + " " + modifier;
-			
-	});
 	
 	// DOGECHAIN wallet balance
-	var getBalance = $.get("https://dogechain.info/api/v1/address/balance/" + walletAddress, function (jstring) {
-		var success = jstring['success'];
-		var balance = jstring['balance'];
+	
+	if (walletAddress != "" && walletAddress != "muchaddressveryempty")
+	{
+	
+		var getBalance = $.get("https://dogechain.info/api/v1/address/balance/" + walletAddress, function (jstring) {
+			var success = jstring['success'];
+			var balance = jstring['balance'];
 		
+			document.getElementById("walletBalance").innerHTML = "Wallet Balance: &#208;" + balance;
 		
-		if (success == 1)
-		{
-			document.getElementById("walletBalance").innerHTML = "Wallet Balance: &#208;" + balance;	
-		}
-		
-		
-	});
+		});
+	}
+	else {
+		document.getElementById("walletBalance").innerHTML = "Specify a valid Dogecoin address!"
+	}
 	
 	console.log(data);
 });
 
 $(window).ready(function () {
 	$('#loading').hide();
+	$("#cryptsy").click(function() {
+		$("#showhide").toggle();
+	});
+	$("#bter").click(function() {
+		$("#showhide2").toggle();
+	});
 });
 
 function load_options() {
@@ -63,6 +77,7 @@ function load_options() {
 }
 
 $(window).ready(load_options);
+
 
 
 function utf8_decode(str_data){
